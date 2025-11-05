@@ -3,9 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/components/*": ["./app/components/*"],
+      "@/assets/*": ["./assets/*"],
+      "@/*": ["./app/*"]
     }
   },
   "include": [
