@@ -1,0 +1,74 @@
+# .cursorrules
+
+
+# 1. Docs for guiding AI
+
+Note that the following markdown files are 
+
+
+# 1. Data
+
+- Do not invent columns or tables not present in docs/DB_SCHEMA.sql
+- Use generated types in queries and API handlers.
+
+
+# 2. Style
+
+- for styles only use vars in theme/theme.ts 
+
+
+# 3. Architectural Constraints
+
+- Respect the architecture described in ARCHITECTURE.md.
+- Follow the domain terms and invariants in DOMAIN-GLOSSARY.md.
+- All access must be scoped by:
+  - Current user
+  - Membership in a Care Circle
+  - Role (PRIMARY_CAREGIVER, CAREGIVER, FAMILY_MEMBER)
+
+
+
+
+# 4. Coding Conventions
+
+- Use best coding style for expo
+- Routing is with Expo Router, which is built on top of React Navigation
+- Keep files small and focused.
+- Prefer dependency injection patterns already used in the repo.
+- Prefer simple, readable solutions over premature optimization.
+- When unsure about stack-specific details, follow existing patterns in the codebase instead of inventing new ones.
+
+# 5. Error Handling
+
+- Do not crash the process for expected errors.
+- For HTTP APIs:
+  - 400: validation issues
+  - 401: unauthenticated
+  - 403: unauthorized (e.g. user not in Care Circle)
+  - 404: resource not found
+  - 500: unexpected errors
+- Return structured error responses with:
+  - `code` (machine-readable)
+  - `message` (human-readable)
+
+
+
+# 6. AI Integration
+
+- Do not call AI APIs directly from controllers.
+- Use a dedicated `aiService` / `aiClient` abstraction.
+- Centralize prompts in a single place (e.g. `ai/prompts.ts`).
+- AI endpoints must not:
+  - Provide medical advice
+  - Modify original records (messages, notes, meds)
+- AI is only allowed to:
+  - Summarize
+  - Rephrase
+  - Highlight patterns from existing data with clear uncertainty.
+
+
+# 7. When Editing Existing Code
+
+- Preserve existing patterns and conventions.
+- If you must refactor, do it incrementally and keep behaviour identical.
+- When in doubt, prefer minimal changes that solve the problem.
